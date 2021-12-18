@@ -11,11 +11,11 @@ const settings = {
 
 describe('Delayer', () => {
   it('Initiate', async () => {
-    const delayer = new Delayer({ settings });
+    const delayer = new Delayer(settings);
     expect(delayer.settings.fixedDelayIncrement).toStrictEqual(5);
   });
   it('fixedDelayIncrement', async () => {
-    const delayer = new Delayer({ settings });
+    const delayer = new Delayer(settings);
     const results = [
       delayer.getNextDelay(),
       delayer.getNextDelay(),
@@ -25,7 +25,7 @@ describe('Delayer', () => {
     expect(results).toStrictEqual([10, 15, 20, 25]);
   });
   it('fixedDelayIncrement', async () => {
-    const delayer = new Delayer({ settings: { ...settings, maximumDelay: 20 } });
+    const delayer = new Delayer({ ...settings, maximumDelay: 20 });
     const results = [
       delayer.getNextDelay(),
       delayer.getNextDelay(),
@@ -35,7 +35,7 @@ describe('Delayer', () => {
     expect(results).toStrictEqual([10, 15, 20, 20]);
   });
   it('exponential increment', async () => {
-    const delayer = new Delayer({ settings: { ...settings, fixedDelayIncrement: 0 } });
+    const delayer = new Delayer({ ...settings, fixedDelayIncrement: 0 });
     const results = [
       delayer.getNextDelay(),
       delayer.getNextDelay(),

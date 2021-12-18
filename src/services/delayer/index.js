@@ -1,5 +1,5 @@
 class Delayer {
-  constructor({ settings }) {
+  constructor(settings) {
     this.settings = settings;
     this.lastDelay = 0;
   }
@@ -20,7 +20,7 @@ class Delayer {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve();
-      }, this.getNextDelay());
+      }, this.getNextDelay()).unref();
     });
   }
 }

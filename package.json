@@ -1,7 +1,7 @@
 {
-  "name": "retry-client",
+  "name": "retry-timeout",
   "version": "0.1.0",
-  "description": "",
+  "description": "retry any function with either fixed back off or exponential back off",
   "main": "index.js",
   "scripts": {
     "test": "jest --collect-coverage"

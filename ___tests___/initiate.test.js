@@ -1,13 +1,13 @@
 /* eslint-disable max-lines-per-function */
 /* eslint-disable no-undef */
-const RetryClient = require('../index');
+const RetryTimeoutClient = require('../index');
 const retryHandler = require('../src/services/settingsLoader/src/retryHandler');
 const errorHandler = require('../src/services/settingsLoader/src/errorHandler');
 
 describe('Initiate Retry Client', () => {
   it('Load default settings when no input provided', () => {
-    const retryClient = new RetryClient();
-    expect(retryClient.settings).toStrictEqual({
+    const retryTimeoutClient = new RetryTimeoutClient();
+    expect(retryTimeoutClient.settings).toStrictEqual({
       retryHandler,
       errorHandler,
       fixedDelayIncrement: 0,
@@ -15,11 +15,12 @@ describe('Initiate Retry Client', () => {
       delayExponent: 1.1,
       maximumDelay: 10000,
       maximumRetryCount: 5,
+      timeout: 0,
     });
   });
   it('Load default settings', () => {
-    const retryClient = new RetryClient({});
-    expect(retryClient.settings).toStrictEqual({
+    const retryTimeoutClient = new RetryTimeoutClient({});
+    expect(retryTimeoutClient.settings).toStrictEqual({
       retryHandler,
       errorHandler,
       fixedDelayIncrement: 0,
@@ -27,12 +28,13 @@ describe('Initiate Retry Client', () => {
       delayExponent: 1.1,
       maximumDelay: 10000,
       maximumRetryCount: 5,
+      timeout: 0,
     });
   });
   it('Load custom settings', () => {
     const customRetryHandler = (event) => event;
     const customErrorHandler = (event) => event;
-    const retryClient = new RetryClient({
+    const retryTimeoutClient = new RetryTimeoutClient({
       retryHandler: customRetryHandler,
       errorHandler: customErrorHandler,
       fixedDelayIncrement: 10,
@@ -40,8 +42,9 @@ describe('Initiate Retry Client', () => {
       delayExponent: 1.01,
       maximumDelay: 9999,
       maximumRetryCount: 3,
+      timeout: 3000,
     });
-    expect(retryClient.settings).toStrictEqual({
+    expect(retryTimeoutClient.settings).toStrictEqual({
       retryHandler: customRetryHandler,
       errorHandler: customErrorHandler,
       fixedDelayIncrement: 10,
@@ -49,6 +52,7 @@ describe('Initiate Retry Client', () => {
       delayExponent: 1.01,
       maximumDelay: 9999,
       maximumRetryCount: 3,
+      timeout: 3000,
     });
   });
 });

@@ -2,9 +2,9 @@ const retryHandler = require('./src/retryHandler');
 const errorHandler = require('./src/errorHandler');
 
 class SettingsLoader {
-  constructor({ settings }) {
+  constructor(settings) {
     this.settings = {};
-    this.loadSettings({ userSettings: settings });
+    this.loadSettings(settings);
   }
 
   setSetting({ settingName, settingValue, settingDefault }) {
@@ -16,6 +16,7 @@ class SettingsLoader {
       delayExponent: (setting) => Number(setting),
       maximumDelay: (setting) => Number(setting),
       maximumRetryCount: (setting) => Number(setting),
+      timeout: (setting) => !Number.isNaN(Number(setting)),
     };
     if (settingsValidator[settingName] && settingsValidator[settingName](settingValue)) {
       this.settings[settingName] = settingValue;
@@ -24,7 +25,7 @@ class SettingsLoader {
     }
   }
 
-  loadSettings({ userSettings }) {
+  loadSettings(userSettings) {
     const defaultSettings = {
       retryHandler,
       errorHandler,
@@ -33,6 +34,7 @@ class SettingsLoader {
       delayExponent: 1.1,
       maximumDelay: 10000,
       maximumRetryCount: 5,
+      timeout: 0,
     };
     if (userSettings && typeof userSettings === 'object') {
       Object.keys(defaultSettings).forEach((settingName) => (
