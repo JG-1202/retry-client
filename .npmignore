@@ -1,0 +1,10 @@
+/coverage
+/___tests___
+/node_modules
+.eslintrc.js
+.eslintignore
+.codeclimate.yml
+jest.config.js
+/.github
+.commitlintrc.json
+/.husky
