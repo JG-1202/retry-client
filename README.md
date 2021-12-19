@@ -1,4 +1,10 @@
-# retry-timeout-client
+# retry-client
+[![codefactor](https://img.shields.io/codefactor/grade/github/JG-1202/retry-client?color=2e7dcc&logo=codefactor&logoColor=ffffff&style=for-the-badge)](https://www.codefactor.io/repository/github/jg-1202/retry-client)
+[![npmSize](https://img.shields.io/bundlephobia/min/retry-client?color=2e7dcc&style=for-the-badge)](https://bundlephobia.com/result?p=retry-client)
+[![codecov](https://img.shields.io/codecov/c/github/JG-1202/retry-client?color=2e7dcc&logo=codecov&logoColor=ffffff&style=for-the-badge&token=OFQFOTBOZY)](https://codecov.io/gh/JG-1202/retry-client)
+[![downloads](https://img.shields.io/npm/dw/retry-client?color=2e7dcc&style=for-the-badge)](https://www.npmjs.com/package/retry-client)
+[![maintainability](https://img.shields.io/codeclimate/maintainability/JG-1202/retry-client?color=2e7dcc&logo=code-climate&logoColor=ffffff&style=for-the-badge)](https://codeclimate.com/github/JG-1202/retry-client)
+
 
 Client that retries any function until no error is thrown and (if desired) function did not timeout. 
 Alternatively, a timeout can be set for a single attempt to resolve the function. 
