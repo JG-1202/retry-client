@@ -11,10 +11,10 @@ class SettingsLoader {
     const settingsValidator = {
       retryHandler: (setting) => typeof setting === 'function',
       errorHandler: (setting) => typeof setting === 'function',
-      fixedDelayIncrement: (setting) => !Number.isNaN(Number(setting)),
-      minimumDelay: (setting) => Number(setting),
-      delayExponent: (setting) => Number(setting),
-      maximumDelay: (setting) => Number(setting),
+      fixedBackOff: (setting) => !Number.isNaN(Number(setting)),
+      minimumBackOff: (setting) => Number(setting),
+      backOffExponent: (setting) => Number(setting),
+      maximumBackOff: (setting) => Number(setting),
       maximumRetryCount: (setting) => Number(setting),
       timeout: (setting) => !Number.isNaN(Number(setting)),
     };
@@ -29,10 +29,10 @@ class SettingsLoader {
     const defaultSettings = {
       retryHandler,
       errorHandler,
-      fixedDelayIncrement: 0,
-      minimumDelay: 100,
-      delayExponent: 1.1,
-      maximumDelay: 10000,
+      fixedBackOff: 0,
+      minimumBackOff: 100,
+      backOffExponent: 1.5,
+      maximumBackOff: 10000,
       maximumRetryCount: 5,
       timeout: 0,
     };

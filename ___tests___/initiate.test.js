@@ -10,10 +10,10 @@ describe('Initiate Retry Client', () => {
     expect(retryTimeoutClient.settings).toStrictEqual({
       retryHandler,
       errorHandler,
-      fixedDelayIncrement: 0,
-      minimumDelay: 100,
-      delayExponent: 1.1,
-      maximumDelay: 10000,
+      fixedBackOff: 0,
+      minimumBackOff: 100,
+      backOffExponent: 1.5,
+      maximumBackOff: 10000,
       maximumRetryCount: 5,
       timeout: 0,
     });
@@ -23,10 +23,10 @@ describe('Initiate Retry Client', () => {
     expect(retryTimeoutClient.settings).toStrictEqual({
       retryHandler,
       errorHandler,
-      fixedDelayIncrement: 0,
-      minimumDelay: 100,
-      delayExponent: 1.1,
-      maximumDelay: 10000,
+      fixedBackOff: 0,
+      minimumBackOff: 100,
+      backOffExponent: 1.5,
+      maximumBackOff: 10000,
       maximumRetryCount: 5,
       timeout: 0,
     });
@@ -37,20 +37,20 @@ describe('Initiate Retry Client', () => {
     const retryTimeoutClient = new RetryTimeoutClient({
       retryHandler: customRetryHandler,
       errorHandler: customErrorHandler,
-      fixedDelayIncrement: 10,
-      minimumDelay: 99,
-      delayExponent: 1.01,
-      maximumDelay: 9999,
+      fixedBackOff: 10,
+      minimumBackOff: 99,
+      backOffExponent: 1.01,
+      maximumBackOff: 9999,
       maximumRetryCount: 3,
       timeout: 3000,
     });
     expect(retryTimeoutClient.settings).toStrictEqual({
       retryHandler: customRetryHandler,
       errorHandler: customErrorHandler,
-      fixedDelayIncrement: 10,
-      minimumDelay: 99,
-      delayExponent: 1.01,
-      maximumDelay: 9999,
+      fixedBackOff: 10,
+      minimumBackOff: 99,
+      backOffExponent: 1.01,
+      maximumBackOff: 9999,
       maximumRetryCount: 3,
       timeout: 3000,
     });

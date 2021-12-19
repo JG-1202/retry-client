@@ -5,14 +5,6 @@ class TimeoutExecutor {
     this.settings = settings;
   }
 
-  async callErrorHandler(err) {
-    const { stack, message, code } = err;
-    return this.settings.errorHandler({
-      totalDuration: new Date().getTime() - this.startDt,
-      error: { stack, message, code },
-    });
-  }
-
   async timeout(func, funcInput) {
     this.startDt = new Date().getTime();
     const timer = new Timer(this.settings);
@@ -21,7 +13,7 @@ class TimeoutExecutor {
       timer.stopTimer();
       return result;
     } catch (err) {
-      await this.callErrorHandler(err);
+      timer.stopTimer();
       throw err;
     }
   }

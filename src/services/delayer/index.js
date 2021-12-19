@@ -6,13 +6,13 @@ class Delayer {
 
   getNextDelay() {
     if (this.lastDelay === 0) {
-      this.lastDelay = this.settings.minimumDelay;
-    } else if (this.settings.fixedDelayIncrement) {
-      this.lastDelay += this.settings.fixedDelayIncrement;
+      this.lastDelay = this.settings.minimumBackOff;
+    } else if (this.settings.fixedBackOff) {
+      this.lastDelay += this.settings.fixedBackOff;
     } else {
-      this.lastDelay *= this.settings.delayExponent;
+      this.lastDelay *= this.settings.backOffExponent;
     }
-    this.lastDelay = Math.round(Math.min(this.lastDelay, this.settings.maximumDelay));
+    this.lastDelay = Math.round(Math.min(this.lastDelay, this.settings.maximumBackOff));
     return this.lastDelay;
   }
 

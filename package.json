@@ -1,7 +1,7 @@
 {
-  "name": "retry-timeout",
-  "version": "0.1.0",
-  "description": "retry any function with either fixed back off or exponential back off",
+  "name": "retry-client",
+  "version": "1.0.0",
+  "description": "retry any function (with or without timeout) with either fixed back off or exponential back off",
   "main": "index.js",
   "scripts": {
     "test": "jest --collect-coverage"
@@ -10,6 +10,17 @@
     "type": "git",
     "url": "git+https://github.com/JG-1202/retry-client.git"
   },
+  "keywords": [
+    "retry",
+    "timeout",
+    "backoff",
+    "back off",
+    "exponential",
+    "retries",
+    "promise",
+    "function",
+    "callback"
+  ],
   "author": "JG-1202",
   "license": "MIT",
   "bugs": {
@@ -23,6 +34,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.3",
     "husky": "^7.0.4",
-    "jest": "^27.4.5"
+    "jest": "^27.4.5",
+    "typescript": "^4.5.4"
   }
 }

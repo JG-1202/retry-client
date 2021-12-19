@@ -1,4 +1,5 @@
 const Delayer = require('../delayer');
+const TimeoutExecutor = require('../timeoutExecutor');
 
 class RetryExecutor {
   constructor(settings) {
@@ -13,30 +14,32 @@ class RetryExecutor {
 
   async callFunction(func, funcInput) {
     this.retryCount += 1;
+    if (this.settings.timeout) {
+      const timeoutExecutor = new TimeoutExecutor(this.settings);
+      return timeoutExecutor.timeout(func, funcInput);
+    }
     return func(...funcInput);
   }
 
-  async callRetryHandler(err) {
-    const { stack, message, code } = err;
+  async callRetryHandler(error) {
     const now = new Date().getTime();
     return this.settings.retryHandler({
       totalDuration: now - this.startDt,
       iterationDuration: now - this.iterationStartDt,
       iteration: this.retryCount,
       remaining: this.settings.maximumRetryCount - this.retryCount,
-      error: { stack, message, code },
+      error,
     });
   }
 
-  async callErrorHandler(err) {
-    const { stack, message, code } = err;
+  async callErrorHandler(error) {
     const now = new Date().getTime();
     return this.settings.errorHandler({
       totalDuration: now - this.startDt,
       iterationDuration: now - this.iterationStartDt,
       iteration: this.retryCount,
       remaining: 0,
-      error: { stack, message, code },
+      error,
     });
   }
 
