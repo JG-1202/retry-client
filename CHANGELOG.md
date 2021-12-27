@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented here.
 
+## [1.1.0] - 2021-12-27
+### Added
+- safeRetry
+- safeTimeout
+
 ## [1.0.0] - 2021-12-19
 ### Added
 - retry

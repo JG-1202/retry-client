@@ -68,6 +68,25 @@ If successfully resolved within 3 retries, result is:
 `'A - B - C'`
 Otherwise error of last attempt is thrown.
 
+#### retryClient.safeRetry(functionToCall, functionInput)
+Attempts to successfully resolve `functionToCall` with the provided `functionInput`. Stops retrying when function resolved successfully once. Returns `null` when last attempt failed.
+
+Example:
+```javascript
+const RetryClient = require('retry-client');
+const settings = { maximumRetryCount: 3 };
+const retryClient = new RetryClient(settings);
+const functionToCall = (inputA, inputB, inputC) => {
+  //do something
+  return `${inputA} - ${inputB} - ${inputC}`;
+};
+const result = retryClient.safeRetry(functionToCall, ['A', 'B', 'C']);
+```
+
+If successfully resolved within 3 retries, result is:
+`'A - B - C'`
+Otherwise return `null`.
+
 #### retryClient.timeout(functionToCall, functionInput)
 Attempts to successfully resolve `functionToCall` with the provided `functionInput` within the provided `timeout` (setting).
 
@@ -86,3 +105,22 @@ const result = retryClient.timeout(functionToCall, ['A', 'B', 'C']);
 If successfully resolved within 1000 ms, result is:
 `'A - B - C'`
 Otherwise the following error is thrown: `Timed out after 1000 ms.`
+
+#### retryClient.safeTimeout(functionToCall, functionInput)
+Attempts to successfully resolve `functionToCall` with the provided `functionInput` within the provided `timeout` (setting). When not resolved the function returns `null`.
+
+Example:
+```javascript
+const RetryClient = require('retry-client');
+const settings = { timeout: 1000 };
+const retryClient = new RetryClient(settings);
+const functionToCall = (inputA, inputB, inputC) => {
+  //do something
+  return `${inputA} - ${inputB} - ${inputC}`;
+};
+const result = retryClient.safeTimeout(functionToCall, ['A', 'B', 'C']);
+```
+
+If successfully resolved within 1000 ms, result is:
+`'A - B - C'`
+Otherwise return `null`.
