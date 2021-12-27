@@ -13,6 +13,16 @@ describe('Retry', () => {
     expect(functionToCall).toBeCalledWith('a', 1, 'b', 2);
     expect(functionToCall).toBeCalledTimes(1);
   });
+  it('Call safeRetry, success on first attempt', async () => {
+    const retryTimeoutClient = new RetryTimeoutClient();
+    const functionToCall = jest.fn(() => new Promise((resolve) => {
+      resolve('success');
+    }));
+    const result = await retryTimeoutClient.safeRetry(functionToCall, ['a', 1, 'b', 2]);
+    expect(result).toStrictEqual('success');
+    expect(functionToCall).toBeCalledWith('a', 1, 'b', 2);
+    expect(functionToCall).toBeCalledTimes(1);
+  });
   it('Call retry client, success on third attempt', async () => {
     const retryResponses = [];
     const errorResponses = [];
@@ -80,6 +90,36 @@ describe('Retry', () => {
       errorMessage = err.message;
     }
     expect(errorMessage).toStrictEqual('test error');
+    expect(functionToCall).toBeCalledWith('a', 1, 'b', 2);
+    expect(functionToCall).toBeCalledTimes(6);
+    expect(retryHandler).toBeCalledTimes(5);
+    expect(errorHandler).toBeCalledTimes(1);
+    expect(retryResponses.length).toStrictEqual(5);
+    retryResponses.forEach((retryResponse, index) => {
+      expect(retryResponse.error.message).toStrictEqual('test error');
+      expect(retryResponse.iteration).toStrictEqual(index + 1);
+      expect(retryResponse.remaining).toStrictEqual(4 - index);
+    });
+    expect(errorResponses.length).toStrictEqual(1);
+    errorResponses.forEach((errorResponse) => {
+      expect(errorResponse.error.message).toStrictEqual('test error');
+      expect(errorResponse.iteration).toStrictEqual(6);
+      expect(errorResponse.remaining).toStrictEqual(0);
+    });
+  });
+  it('Call safeRetry, fails every time, with custom retry-/errorHandler', async () => {
+    const retryResponses = [];
+    const errorResponses = [];
+    const retryHandler = jest.fn((response) => retryResponses.push(response));
+    const errorHandler = jest.fn((response) => errorResponses.push(response));
+    const retryTimeoutClient = new RetryTimeoutClient({
+      retryHandler,
+      errorHandler,
+    });
+    const functionToCall = jest.fn(() => new Promise((resolve, reject) => {
+      reject(new Error('test error'));
+    }));
+    await retryTimeoutClient.safeRetry(functionToCall, ['a', 1, 'b', 2]);
     expect(functionToCall).toBeCalledWith('a', 1, 'b', 2);
     expect(functionToCall).toBeCalledTimes(6);
     expect(retryHandler).toBeCalledTimes(5);

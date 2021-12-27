@@ -53,9 +53,24 @@ class RetryClient {
    * @param {Array} functionInput input parameters for function to call.
    * @returns {any} response of function to call after final attempt.
    */
-  retry(functionToCall, functionInput) {
+  async retry(functionToCall, functionInput) {
     const retryExecutor = new RetryExecutor(this.settings);
     return retryExecutor.retry(functionToCall, functionInput);
+  }
+
+  /**
+   * Safely retry to call function, when failed return null.
+   * @param {function} functionToCall function to retry.
+   * @param {Array} functionInput input parameters for function to call.
+   * @returns {any} response of function to call after final attempt or null if failed.
+   */
+  async safeRetry(functionToCall, functionInput) {
+    try {
+      const result = await this.retry(functionToCall, functionInput);
+      return result;
+    } catch (e) {
+      return null;
+    }
   }
 
   /**
@@ -64,9 +79,25 @@ class RetryClient {
    * @param {Array} functionInput input parameters for function to call.
    * @returns {any} response of function to call after final attempt.
    */
-  timeout(functionToCall, functionInput) {
+  async timeout(functionToCall, functionInput) {
     const retryExecutor = new RetryExecutor({ ...this.settings, maximumRetryCount: 0 });
     return retryExecutor.retry(functionToCall, functionInput);
+  }
+
+  /**
+   * Safely timeout to call function (single attempt to call functionToCall,
+   * return null when failed).
+   * @param {function} functionToCall function to timeout.
+   * @param {Array} functionInput input parameters for function to call.
+   * @returns {any} response of function to call after final attempt.
+   */
+  async safeTimeout(functionToCall, functionInput) {
+    try {
+      const result = await this.timeout(functionToCall, functionInput);
+      return result;
+    } catch (e) {
+      return null;
+    }
   }
 }
 
