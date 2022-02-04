@@ -73,4 +73,14 @@ describe('Retry', () => {
     expect(errorResponses.length).toStrictEqual(1);
     expect(errorResponses[0].error.message).toStrictEqual('Timed out after 1000 ms.');
   });
+  it('Call timeout client without function input', async () => {
+    const retryTimeoutClient = new RetryTimeoutClient({ timeout: 1000 });
+    const functionToCall = jest.fn(() => new Promise((resolve) => {
+      resolve('success');
+    }));
+    const result = await retryTimeoutClient.timeout(functionToCall);
+    expect(result).toStrictEqual('success');
+    expect(functionToCall).toBeCalledWith();
+    expect(functionToCall).toBeCalledTimes(1);
+  });
 });

@@ -166,4 +166,29 @@ describe('Retry', () => {
     expect(retryResponses[0].error.message).toStrictEqual('Timed out after 500 ms.');
     expect(retryResponses[1].error.message).toStrictEqual('Timed out after 500 ms.');
   });
+  it('Call retry client, input function of another class', async () => {
+    const retryTimeoutClient = new RetryTimeoutClient();
+    class Tester {
+      constructor() {
+        this.value = 13;
+      }
+
+      getMultitude(factor) {
+        return this.value * factor;
+      }
+    }
+    const tester = new Tester();
+    const result = await retryTimeoutClient.retry(tester.getMultitude.bind(tester), [2]);
+    expect(result).toStrictEqual(26);
+  });
+  it('Call retry client without function input', async () => {
+    const retryTimeoutClient = new RetryTimeoutClient();
+    const functionToCall = jest.fn(() => new Promise((resolve) => {
+      resolve('success');
+    }));
+    const result = await retryTimeoutClient.retry(functionToCall);
+    expect(result).toStrictEqual('success');
+    expect(functionToCall).toBeCalledWith();
+    expect(functionToCall).toBeCalledTimes(1);
+  });
 });
