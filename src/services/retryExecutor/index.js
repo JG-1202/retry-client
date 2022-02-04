@@ -14,11 +14,12 @@ class RetryExecutor {
 
   async callFunction(func, funcInput) {
     this.retryCount += 1;
+    const functionInput = Array.isArray(funcInput) ? funcInput : [];
     if (this.settings.timeout) {
       const timeoutExecutor = new TimeoutExecutor(this.settings);
-      return timeoutExecutor.timeout(func, funcInput);
+      return timeoutExecutor.timeout(func, functionInput);
     }
-    return func(...funcInput);
+    return func(...functionInput);
   }
 
   async callRetryHandler(error) {

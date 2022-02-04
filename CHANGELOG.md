@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented here.
 
+## [1.2.0] - 2022-02-04
+### Changed
+- bugfix where delayer stopt at end of execution, potentially resulting into missing retries
+- allowing to call function without function input
+
 ## [1.1.0] - 2021-12-27
 ### Added
 - safeRetry

@@ -1,6 +1,6 @@
 {
   "name": "retry-client",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "retry any function (with or without timeout) with either fixed back off or exponential back off",
   "main": "index.js",
   "scripts": {
@@ -28,13 +28,13 @@
   },
   "homepage": "https://github.com/JG-1202/retry-client#readme",
   "devDependencies": {
-    "@commitlint/cli": "^15.0.0",
-    "@commitlint/config-conventional": "^15.0.0",
-    "eslint": "^8.4.1",
+    "@commitlint/cli": "^16.1.0",
+    "@commitlint/config-conventional": "^16.0.0",
+    "eslint": "^8.8.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-import": "^2.25.4",
     "husky": "^7.0.4",
-    "jest": "^27.4.5",
-    "typescript": "^4.5.4"
+    "jest": "^27.4.7",
+    "typescript": "^4.5.5"
   }
 }

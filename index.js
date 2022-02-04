@@ -50,7 +50,7 @@ class RetryClient {
   /**
    * Retry to call function.
    * @param {function} functionToCall function to retry.
-   * @param {Array} functionInput input parameters for function to call.
+   * @param {Array?} functionInput input parameters for function to call.
    * @returns {any} response of function to call after final attempt.
    */
   async retry(functionToCall, functionInput) {
@@ -61,7 +61,7 @@ class RetryClient {
   /**
    * Safely retry to call function, when failed return null.
    * @param {function} functionToCall function to retry.
-   * @param {Array} functionInput input parameters for function to call.
+   * @param {Array?} functionInput input parameters for function to call.
    * @returns {any} response of function to call after final attempt or null if failed.
    */
   async safeRetry(functionToCall, functionInput) {
@@ -76,7 +76,7 @@ class RetryClient {
   /**
    * Timeout to call function (single attempt to call functionToCall).
    * @param {function} functionToCall function to timeout.
-   * @param {Array} functionInput input parameters for function to call.
+   * @param {Array?} functionInput input parameters for function to call.
    * @returns {any} response of function to call after final attempt.
    */
   async timeout(functionToCall, functionInput) {
@@ -88,7 +88,7 @@ class RetryClient {
    * Safely timeout to call function (single attempt to call functionToCall,
    * return null when failed).
    * @param {function} functionToCall function to timeout.
-   * @param {Array} functionInput input parameters for function to call.
+   * @param {Array?} functionInput input parameters for function to call.
    * @returns {any} response of function to call after final attempt.
    */
   async safeTimeout(functionToCall, functionInput) {

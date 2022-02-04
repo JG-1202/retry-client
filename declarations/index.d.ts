@@ -42,32 +42,32 @@ declare class RetryClient {
     /**
      * Retry to call function.
      * @param {function} functionToCall function to retry.
-     * @param {Array} functionInput input parameters for function to call.
+     * @param {Array?} functionInput input parameters for function to call.
      * @returns {any} response of function to call after final attempt.
      */
-    retry(functionToCall: Function, functionInput: any[]): any;
+    retry(functionToCall: Function, functionInput: any[] | null): any;
     /**
      * Safely retry to call function, when failed return null.
      * @param {function} functionToCall function to retry.
-     * @param {Array} functionInput input parameters for function to call.
+     * @param {Array?} functionInput input parameters for function to call.
      * @returns {any} response of function to call after final attempt or null if failed.
      */
-    safeRetry(functionToCall: Function, functionInput: any[]): any;
+    safeRetry(functionToCall: Function, functionInput: any[] | null): any;
     /**
      * Timeout to call function (single attempt to call functionToCall).
      * @param {function} functionToCall function to timeout.
-     * @param {Array} functionInput input parameters for function to call.
+     * @param {Array?} functionInput input parameters for function to call.
      * @returns {any} response of function to call after final attempt.
      */
-    timeout(functionToCall: Function, functionInput: any[]): any;
+    timeout(functionToCall: Function, functionInput: any[] | null): any;
     /**
      * Safely timeout to call function (single attempt to call functionToCall,
      * return null when failed).
      * @param {function} functionToCall function to timeout.
-     * @param {Array} functionInput input parameters for function to call.
+     * @param {Array?} functionInput input parameters for function to call.
      * @returns {any} response of function to call after final attempt.
      */
-    safeTimeout(functionToCall: Function, functionInput: any[]): any;
+    safeTimeout(functionToCall: Function, functionInput: any[] | null): any;
 }
 declare namespace RetryClient {
     export { requestCallbackObject, requestCallback, SettingsObject };

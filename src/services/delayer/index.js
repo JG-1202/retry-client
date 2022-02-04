@@ -20,7 +20,7 @@ class Delayer {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve();
-      }, this.getNextDelay()).unref();
+      }, this.getNextDelay());
     });
   }
 }
